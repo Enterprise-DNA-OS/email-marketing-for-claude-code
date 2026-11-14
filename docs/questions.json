@@ -1,0 +1,12 @@
+[
+  { "question": "How much of this month's store revenue came from email, and how much of that from the automated flows?", "command": "npm run email -- revenue" },
+  { "question": "What did each campaign we sent actually earn, counting only orders after a click?", "command": "npm run email -- results" },
+  { "question": "Did anyone get an email after they asked us to stop?", "command": "npm run email -- compliance" },
+  { "question": "Which unsubscribes took us longer than five working days to action?", "command": "npm run email -- compliance" },
+  { "question": "Who has bought two or more times but gone quiet for three months?", "command": "npm run email -- rfm --band=\"at risk\"" },
+  { "question": "How many of our best customers can we actually email right now?", "command": "npm run email -- audience" },
+  { "question": "Who is due an abandoned checkout or welcome email right now, and how long have they waited?", "command": "npm run email -- flows-due" },
+  { "question": "Which flow is switched off, or on but sending nothing?", "command": "npm run email -- attention" },
+  { "question": "What is our spam-report rate over 30 days against Google's 0.3% line?", "command": "npm run email -- list-health" },
+  { "question": "Show me everything we ever sent Finn, his consent history, and when he asked to stop.", "command": "npm run email -- profile --profile=finn" }
+]

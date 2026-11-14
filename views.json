@@ -1,14 +1,33 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Email Marketing for Claude Code: what needs attention, rendered by npm run view",
+    "title": "This week in email",
+    "subtitle": "What needs a person, what goes out next and what is due from the flows",
     "sections": [
-      {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
-      }
+      { "title": "Needs attention", "sql": "select issue, ref, \"when\", detail from v_attention order by issue, ref" },
+      { "title": "Going out next", "sql": "select campaign, status, to_char(scheduled_for,'YYYY-MM-DD HH24:MI') as scheduled, segment, approved_by, subject from v_calendar where status in ('draft','approved') order by scheduled_for nulls last" },
+      { "title": "Flow emails due now", "sql": "select flow, step_no as step, count(*) as people, to_char(min(due_at),'YYYY-MM-DD HH24:MI') as oldest_due from v_flows_due group by flow, step_no order by flow, step_no" }
+    ]
+  },
+  {
+    "name": "results",
+    "title": "What email earned",
+    "subtitle": "Campaign results, flows and the share of store revenue that came from email",
+    "sections": [
+      { "title": "Campaigns", "sql": "select campaign, to_char(sent_at,'YYYY-MM-DD') as sent_on, sent, open_pct, click_pct, complained, orders, revenue_cents, currency from v_campaign_results order by sent_at desc" },
+      { "title": "Flows, last 30 days", "sql": "select flow, active, sent_30d, clicked_30d, orders_30d, revenue_30d_cents, currency from v_flow_health order by revenue_30d_cents desc" },
+      { "title": "Store revenue and email's share, by month", "sql": "with s as (select store_currency from v_setting), m as (select generate_series(date_trunc('month', now()) - interval '5 months', date_trunc('month', now()), interval '1 month') as month) select to_char(m.month,'YYYY-MM') as month, (select coalesce(sum(total_cents),0) from orders o where not refunded and currency = s.store_currency and date_trunc('month', placed_at) = m.month) as store_cents, (select coalesce(sum(total_cents),0) from v_attribution a where a.currency = s.store_currency and date_trunc('month', placed_at) = m.month) as from_email_cents, s.store_currency as currency from m cross join s order by m.month" }
+    ]
+  },
+  {
+    "name": "list",
+    "title": "List health",
+    "subtitle": "Who you can email, who has gone quiet, and the customer value bands",
+    "sections": [
+      { "title": "The list", "sql": "select * from v_list_health" },
+      { "title": "Customer bands", "sql": "select band, count(*) as people, count(*) filter (where consent = 'subscribed') as subscribed, sum(spend_cents) as spend_cents, max(currency) as currency from v_rfm group by band order by sum(spend_cents) desc" },
+      { "title": "Sunset candidates", "sql": "select email, first_name, to_char(last_engaged_at,'YYYY-MM-DD') as last_engaged, orders from v_customer where consent = 'subscribed' and last_engaged_at < now() - make_interval(days => (select unengaged_days from v_setting)) order by last_engaged_at" },
+      { "title": "Consent and unsubscribe findings", "sql": "select rule, ref, finding from v_compliance order by rule, ref" }
     ]
   }
 ]

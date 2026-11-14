@@ -1,0 +1,6 @@
+Email,First Name,Last Name,Phone Number,City,Country,Email Marketing Consent,Email Marketing Consent Timestamp,Email Marketing Consent Source,Profile Created On,Klaviyo ID
+tui.morgan@example.com,Tui,Morgan,,Wellington,New Zealand,SUBSCRIBED,2025-03-02T09:14:00Z,Footer sign-up form,2025-03-02T09:14:00Z,01HZX1
+ivy.nguyen@example.com,Ivy,Nguyen,,Sydney,Australia,SUBSCRIBED,,,2025-06-11T01:00:00Z,01HZX2
+paul.hart@example.com,Paul,Hart,,Auckland,New Zealand,UNSUBSCRIBED,2025-09-20T22:05:00Z,,2024-11-01T03:00:00Z,01HZX3
+noor.ali@example.com,Noor,Ali,,Hamilton,New Zealand,NEVER_SUBSCRIBED,,,2025-10-05T04:30:00Z,01HZX4
+aroha.ngata@example.com,Aroha,Ngata,,Nelson,New Zealand,SUBSCRIBED,2025-07-01T00:00:00Z,Footer sign-up form,2025-07-01T00:00:00Z,01HZX5

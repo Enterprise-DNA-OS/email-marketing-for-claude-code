@@ -1,11 +1,25 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
+    "name": "campaign-report",
+    "title": "Campaign report",
+    "for_each": "select id, name from campaigns where status = 'sent'",
     "file": "name",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      { "title": "The campaign", "layout": "record", "sql": "select c.name as campaign, c.subject, c.goal, s.name as audience, to_char(c.sent_at,'YYYY-MM-DD HH24:MI') as sent, c.approved_by from campaigns c left join segments s on s.id = c.segment_id where c.id = $1" },
+      { "title": "Results", "layout": "record", "sql": "select sent, delivered, open_pct, click_pct, bounced, complained, unsubscribed, orders, revenue_cents, currency from v_campaign_results where campaign_id = $1" },
+      { "title": "Orders credited to this email", "note": "An order counts when it was placed within the attribution window after a click on this email.", "sql": "select a.order_ref, to_char(a.placed_at,'YYYY-MM-DD') as placed, p.email, a.total_cents, a.currency from v_attribution a join profiles p on p.id = a.profile_id where a.campaign_id = $1 order by a.placed_at" }
+    ]
+  },
+  {
+    "name": "consent-record",
+    "title": "Consent record",
+    "for_each": "select p.id, p.email as name from profiles p where exists (select 1 from unsubscribe_requests u where u.profile_id = p.id) or exists (select 1 from messages m where m.profile_id = p.id and m.complained_at is not null)",
+    "file": "name",
+    "sections": [
+      { "title": "The person", "layout": "record", "sql": "select email, first_name, last_name, source, to_char(created_at,'YYYY-MM-DD') as on_list_since from profiles where id = $1" },
+      { "title": "Consent history", "note": "Every change, oldest first. Nothing here is ever overwritten.", "sql": "select to_char(recorded_at,'YYYY-MM-DD HH24:MI') as at, status, kind, source, evidence, actor from consents where profile_id = $1 order by recorded_at" },
+      { "title": "Unsubscribe requests", "sql": "select to_char(requested_at,'YYYY-MM-DD HH24:MI') as asked, via, to_char(actioned_at,'YYYY-MM-DD HH24:MI') as actioned, working_days_between(requested_at, actioned_at) as working_days, actor from unsubscribe_requests where profile_id = $1 order by requested_at" },
+      { "title": "Every email sent to them", "sql": "select to_char(m.sent_at,'YYYY-MM-DD HH24:MI') as sent, coalesce(c.name, f.name) as email, m.opened_at is not null as opened, m.clicked_at is not null as clicked, m.complained_at is not null as reported_spam from messages m left join campaigns c on c.id = m.campaign_id left join flow_steps fs on fs.id = m.flow_step_id left join flows f on f.id = fs.flow_id where m.profile_id = $1 order by m.sent_at" }
     ]
   }
 ]

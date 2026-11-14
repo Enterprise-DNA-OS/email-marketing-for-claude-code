@@ -1,0 +1,6 @@
+RecordType,MessageID,ReceivedAt
+Delivery,pm-welcome-ella,2026-01-01T00:00:00Z
+Open,pm-welcome-ella,2026-01-01T01:00:00Z
+Click,pm-welcome-ella,2026-01-01T01:05:00Z
+SubscriptionChange,pm-post-liam,2026-01-02T00:00:00Z
+Bounce,does-not-exist,2026-01-02T00:00:00Z

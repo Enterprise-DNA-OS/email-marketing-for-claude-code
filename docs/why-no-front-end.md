@@ -1,24 +1,30 @@
 # Why there is no front end
 
-Klaviyo is a database with a subscription. The tables underneath it are ordinary: a few entities, a few relationships, a handful of workflows you repeat every week. What you pay for is the layer on top that lets people who do not write SQL get at those tables. Screens, filters, dashboards, forms.
+Klaviyo is a customer database with an email sender attached. Underneath are a handful of tables: people, consent, orders, events, segments, campaigns, flows and the results of every send. What the monthly bill pays for is mostly the layer that lets someone who does not write SQL get at those tables: the segment builder, the flow canvas, the dashboards, the drag-and-drop editor.
 
-That layer used to be the whole product, because talking to a database was hard. It is not hard any more. Open this folder in Claude Code, describe what you want, and it writes the query, runs it, and explains the answer. Ask a question the dashboard never had a chart for and you still get an answer.
+Open this folder in Claude Code, Codex, OpenCode or Cursor and ask instead. "Who bought twice and has gone quiet?" becomes a segment. "Write the launch email in our voice" becomes a template. "What did the spring sale actually earn?" becomes a table.
 
 ## What you gain
 
-- **Better answers.** A dashboard shows what the vendor decided to chart. Here you ask your own question, in your own words, and get it answered against your own data.
-- **No seats.** Everyone who needs to look can look. The bill does not grow with headcount.
-- **Your data in your Postgres.** Plain tables. Back them up, query them from anything, leave any time. There is no export step because there is nothing to leave.
-- **A process that matches you.** When your way of working changes, you add a command. You do not wait for a feature request to clear.
+- **A bill that does not grow with your list.** Klaviyo charges by active profiles. Here, a bigger list costs only what the sending provider charges per email.
+- **Answers to your own questions.** Revenue by customer band, who got emailed after unsubscribing, which flow has quietly stopped: one question each.
+- **Consent you can prove.** Every consent change, every unsubscribe with the time it was asked for and actioned, every email sent, in one record per person.
+- **Your list in your database.** Plain tables. No export step, because there is nothing to leave.
 
-## What you give up
+## What a screen gives that this does not
 
-- **A visual board.** Stages are a table you ask about, not cards you drag.
-- **A phone app.** It runs where Claude Code runs.
-- **A vendor help desk.** This is open source. Enterprise DNA supports the installed version for businesses that want someone to call.
+Be honest about these before you switch:
+
+- **A drag-and-drop email editor.** Here an email is an HTML template Claude Code writes and you preview in a browser. Most owners find describing the email faster; some designers will not.
+- **Sign-up forms and pop-ups.** Klaviyo hosts them. Here they live on your website and post to your database, which someone has to set up.
+- **Real-time triggers out of the box.** Klaviyo hears a checkout the moment it happens. Here, events arrive by import or a store connection, and flows go out on a timer.
+- **SMS, reviews and the rest of the suite.** Not in the free version.
+- **Benchmarks against other stores.** Klaviyo can compare you with peers. Your own database only knows you.
+
+Enterprise DNA builds any of these into your version if you need them: the store connection, forms on your site, an editor, a screen for the team.
 
 ## Who this fits
 
-Small teams who already use Claude Code, or who would rather learn to ask than learn another interface. If your team needs a screen to look at all day, keep Klaviyo. If you need the answers more than the screens, this is cheaper, faster and yours.
+Online stores with a list in the thousands or tens of thousands, a small team, and a Klaviyo bill that keeps climbing while half the list never opens. If your team lives in the flow canvas all day, keep it. If you want the answers and the control, this is cheaper and yours.
 
 Installed and run for you: https://enterprisedna.co/omni/instead-of/klaviyo

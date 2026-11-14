@@ -1,0 +1,6 @@
+{
+  "_": "Copy this when your export's column names differ. Keys are our fields, values are your column headers. Fields: email, first_name, last_name, phone, city, country, consent, consent_at, consent_source, created, external_id.",
+  "email": "Email Address",
+  "consent": "Subscribed",
+  "consent_at": "Date Subscribed"
+}

@@ -1,0 +1,6 @@
+Name,Email,Financial Status,Paid at,Accepts Marketing,Currency,Subtotal,Total,Discount Code,Created at,Lineitem quantity,Lineitem name,Billing Name
+#9001,tui.morgan@example.com,paid,2026-09-01 10:22:33 +1200,yes,NZD,64.00,64.00,,2026-09-01 10:22:33 +1200,1,House blend 1 kg,Tui Morgan
+#9001,tui.morgan@example.com,,,,,,,,,1,Single origin 250 g,
+#9002,new.buyer@example.com,paid,2026-09-03 08:00:00 +1200,yes,NZD,42.00,42.00,,2026-09-03 08:00:00 +1200,2,Decaf 250 g,Rua Tipene
+#9003,ivy.nguyen@example.com,refunded,2026-09-05 12:00:00 +1000,no,AUD,49.00,49.00,,2026-09-05 12:00:00 +1000,1,House blend 500 g,Ivy Nguyen
+#9004,noor.ali@example.com,voided,,no,NZD,30.00,30.00,,2026-09-06 12:00:00 +1200,1,Cold brew pack,Noor Ali

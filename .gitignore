@@ -16,3 +16,6 @@ feeds/
 exports/
 imports/
 private-*.json
+
+# What would be sent; recipients are personal data
+outbox/

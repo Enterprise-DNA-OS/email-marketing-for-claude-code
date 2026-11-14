@@ -1,11 +1,19 @@
 ---
-description: Check the records against the rules this industry lives under (the ones listed in docs/compliance.md) and report what is missing, late, or about to breach, with the rule cited.
+description: Check the records against the Spam Act 2003 (AU), the Unsolicited Electronic Messages Act 2007 (NZ) and the bulk-sender rules in docs/compliance.md, and report what is late, missing or breached, with the rule cited.
 ---
 
-1. Read `docs/compliance.md`. Each rule has a name, the source it comes from, what a breach looks like in the data, and the SQL or command that finds it.
-2. Run each check. Use the CLI's `--json` output or a direct query through `scripts/lib/db.mjs`.
-3. Report as a table: rule, count, the worst example (name and days), the source. Order by severity: breached first, then due within 7 days, then clean.
-4. For anything breached, draft the fix the operator can approve: the record to update, the notice to send (draft to `drafts/`, never send), or the task to add.
-5. If a rule in `docs/compliance.md` is out of date, say so and stop. Do not guess at law. The operator confirms the rule, then you update the doc and the check together.
+Read CLAUDE.md and docs/compliance.md first.
 
-Nothing here is legal advice. The doc records the rules the operator has told the system to enforce, with sources, and this command checks the data against them.
+Run:
+
+```bash
+npm run email -- compliance
+npm run email -- list-health
+```
+
+1. Report as a table: rule, who or what, the finding, the source from docs/compliance.md. Breaches first (sent after an unsubscribe, sent with no consent, unsubscribe actioned late), then evidence gaps (consent with no record, inferred consent to review, sender details missing), then rates (spam reports, bounces).
+2. For each finding, draft the fix the operator can approve: the unsubscribe to record with the real time they asked (`/unsubscribe`), the evidence to find or the re-permission email to draft, the setting to fill in. Draft to `drafts/`; never send.
+3. For anyone a breach touches, offer `npm run docs -- consent-record` so the operator has their full record in one page.
+4. If a rule in docs/compliance.md looks out of date, say so and stop. Do not guess at law. The operator confirms the rule, then you update the doc and the `v_compliance` view together.
+
+Nothing here is legal advice. The doc records the rules the operator has told the system to check, with sources, and this command checks the data against them.
